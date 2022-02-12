@@ -1,5 +1,6 @@
 import type { NextPage } from "next";
 import Head from "next/head";
+import { useAuth } from "../utils/authContext";
 
 // Chakra UI imports
 import {
@@ -10,16 +11,18 @@ import {
   useDisclosure,
   Flex,
   Text,
-  Button,
   Link,
   Icon,
+  Button,
 } from "@chakra-ui/react";
 
 // React icons import
-import { FcHome } from "react-icons/fc";
+import { BiHomeAlt } from "react-icons/bi";
 
 import { ReactText } from "react";
 import { IconType } from "react-icons";
+import { client } from "../utils/client";
+import { useRouter } from "next/router";
 
 interface SidebarProps extends BoxProps {
   onClose: () => void;
@@ -52,7 +55,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
           ⚡ Sharebase
         </Text>
       </Flex>
-      <NavButtons icon={FcHome}>Home</NavButtons>
+      <NavButtons icon={BiHomeAlt}>Home</NavButtons>
     </Box>
   );
 };
@@ -72,11 +75,17 @@ const NavButtons = ({ icon, children, ...rest }: NavButtonProps) => {
         role="group"
         cursor="pointer"
         bg={"white"}
-        color={"cyan.500"}
         _hover={{ bg: "cyan.500", color: "white" }}
         {...rest}
       >
-        <Icon mr="4" fontSize="16" _hover={{ color: "white" }} as={icon} />
+        <Icon
+          mr="4"
+          fontSize="16"
+          _hover={{ color: "white" }}
+          as={icon}
+          w={6}
+          h={6}
+        />
         {children}
       </Flex>
     </Link>
@@ -85,6 +94,13 @@ const NavButtons = ({ icon, children, ...rest }: NavButtonProps) => {
 
 const Home: NextPage = () => {
   const { onClose } = useDisclosure();
+  const { isUserAuthenticated } = useAuth();
+  const router = useRouter();
+
+  async function signOut() {
+    await client.auth.signOut();
+    router.push("/");
+  }
 
   return (
     <>
@@ -107,21 +123,40 @@ const Home: NextPage = () => {
         />
         <Box ml={{ base: 0, md: 60 }} p="5" bgColor="white">
           <Flex justifyContent="right" alignItems="center">
-            <Link
-              bg={"white"}
-              border={"1px"}
-              borderColor="cyan.500"
-              _hover={{ shadow: "md", bg: "cyan.500", color: "white" }}
-              p={2}
-              px={3}
-              borderRadius="md"
-              href="/login"
-              fontSize="xl"
-              fontWeight="bold"
-              color="cyan.500"
-            >
-              Login
-            </Link>
+            {isUserAuthenticated === "not-authenticated" && (
+              <Link
+                bg={"white"}
+                border={"1px"}
+                borderColor="cyan.500"
+                _hover={{ shadow: "md", bg: "cyan.500", color: "white" }}
+                p={2}
+                px={3}
+                borderRadius="md"
+                href="/login"
+                fontSize="lg"
+                fontWeight="bold"
+                color="cyan.500"
+              >
+                Login
+              </Link>
+            )}
+            {isUserAuthenticated === "authenticated" && (
+              <Button
+                bg={"white"}
+                border={"1px"}
+                borderColor="cyan.500"
+                _hover={{ shadow: "md", bg: "cyan.500", color: "white" }}
+                p={2}
+                px={3}
+                borderRadius="md"
+                fontSize="lg"
+                fontWeight="bold"
+                color="cyan.500"
+                onClick={signOut}
+              >
+                Logout
+              </Button>
+            )}
           </Flex>
         </Box>
       </Box>
