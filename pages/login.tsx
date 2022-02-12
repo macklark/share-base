@@ -1,11 +1,22 @@
 // Chakra UI imports
-import { Flex, Stack, Heading, Input, Button } from "@chakra-ui/react";
+import {
+  Flex,
+  Stack,
+  Heading,
+  Input,
+  Button,
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  AlertDescription,
+} from "@chakra-ui/react";
 
 // React imports
 import { useState } from "react";
 
 // Supabase client import
 import { client } from "../utils/client";
+import Head from "next/head";
 
 export default function Login(): JSX.Element {
   const [email, setEmail] = useState("");
@@ -24,11 +35,37 @@ export default function Login(): JSX.Element {
   }
 
   if (submitted) {
-    return <h1>Check your email !</h1>;
+    return (
+      <Alert
+        status="success"
+        variant="subtle"
+        flexDirection="column"
+        alignItems="center"
+        justifyContent="center"
+        textAlign="center"
+        height="200px"
+        minH={"50vh"}
+      >
+        <AlertIcon boxSize="40px" mr={0} />
+        <AlertTitle mt={4} mb={1} fontSize="lg">
+          ✨Magic Link sent !✨
+        </AlertTitle>
+        <AlertDescription maxWidth="sm">Check your email</AlertDescription>
+      </Alert>
+    );
   }
 
   return (
     <Flex minH={"50vh"} align={"center"} justify={"center"}>
+      <Head>
+        <title>Sharebase - Login</title>
+        <meta
+          name="viewport"
+          content="initial-scale=1.0, width = device-width"
+        />
+        <meta name="description" content="Login | Sharebase" />
+        <meta name="author" content="macklark @github" />
+      </Head>
       <Stack
         spacing={4}
         w={"full"}
