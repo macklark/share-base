@@ -14,10 +14,13 @@ import {
   Link,
   Icon,
   Button,
+  Stack,
+  Heading,
 } from "@chakra-ui/react";
 
 // React icons import
 import { BiHomeAlt } from "react-icons/bi";
+import { FaPencilAlt } from "react-icons/fa";
 
 import { ReactText } from "react";
 import { IconType } from "react-icons";
@@ -92,6 +95,42 @@ const NavButtons = ({ icon, children, ...rest }: NavButtonProps) => {
   );
 };
 
+const Hero = (): JSX.Element => {
+  return (
+    <Stack as={Box} textAlign={"center"} py={{ base: 20, md: 14 }}>
+      <Heading
+        fontWeight={"bold"}
+        fontSize={{ base: "2xl", sm: "4xl", md: "6xl" }}
+        lineHeight={"110%"}
+      >
+        Your one stop <br />
+        <Text as={"span"} color={"cyan.500"}>
+          Blog site
+        </Text>
+      </Heading>
+      <Stack
+        direction={"column"}
+        spacing={3}
+        align={"center"}
+        alignSelf={"center"}
+        mt={"2em"}
+      >
+        <Button
+          bg={"cyan.500"}
+          leftIcon={<FaPencilAlt />}
+          _hover={{ bg: "cyan.400" }}
+          color={"white"}
+          mt={"2em"}
+          fontSize={{ base: "lg", md: "2xl" }}
+          p={{ base: "4", md: "6" }}
+        >
+          WRITE
+        </Button>
+      </Stack>
+    </Stack>
+  );
+};
+
 const Home: NextPage = () => {
   const { onClose } = useDisclosure();
   const { isUserAuthenticated } = useAuth();
@@ -116,7 +155,7 @@ const Home: NextPage = () => {
         />
         <meta name="author" content="macklark @github" />
       </Head>
-      <Box minH="100vh" bg={useColorModeValue("gray.100", "gray.900")}>
+      <Box minH="100vh">
         <SidebarContent
           onClose={() => onClose}
           display={{ base: "none", md: "block" }}
@@ -159,6 +198,7 @@ const Home: NextPage = () => {
             )}
           </Flex>
         </Box>
+        <Hero />
       </Box>
     </>
   );

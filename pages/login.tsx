@@ -9,6 +9,7 @@ import {
   AlertIcon,
   AlertTitle,
   AlertDescription,
+  Text,
 } from "@chakra-ui/react";
 
 // React imports
@@ -17,6 +18,9 @@ import { useState } from "react";
 // Supabase client import
 import { client } from "../utils/client";
 import Head from "next/head";
+
+import { FcGoogle } from "react-icons/fc";
+import { FaGithub } from "react-icons/fa";
 
 export default function Login(): JSX.Element {
   const [email, setEmail] = useState("");
@@ -55,8 +59,20 @@ export default function Login(): JSX.Element {
     );
   }
 
+  async function googleHandler() {
+    await client.auth.signIn({
+      provider: "google",
+    });
+  }
+
+  async function githubHandler() {
+    await client.auth.signIn({
+      provider: "github",
+    });
+  }
+
   return (
-    <Flex minH={"50vh"} align={"center"} justify={"center"}>
+    <Flex minH={"70vh"} align={"center"} justify={"center"}>
       <Head>
         <title>Sharebase - Login</title>
         <meta
@@ -92,6 +108,22 @@ export default function Login(): JSX.Element {
             onClick={() => login()}
           >
             Login
+          </Button>
+        </Stack>
+        <Text as={"span"} fontSize={"md"} align={"center"}>
+          or
+        </Text>
+        <Stack direction={"column"} align={"center"}>
+          <Button leftIcon={<FcGoogle />} onClick={googleHandler}>
+            Continue with Google
+          </Button>
+          <Button
+            leftIcon={<FaGithub />}
+            bg={"#333"}
+            color={"white"}
+            onClick={githubHandler}
+          >
+            Continue with Github
           </Button>
         </Stack>
       </Stack>
