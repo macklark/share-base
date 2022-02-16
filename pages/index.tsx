@@ -21,6 +21,7 @@ import {
 // React icons import
 import { BiHomeAlt } from "react-icons/bi";
 import { FaPencilAlt } from "react-icons/fa";
+import { AiOutlineTag } from "react-icons/ai";
 
 import { ReactText } from "react";
 import { IconType } from "react-icons";
@@ -59,6 +60,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
         </Text>
       </Flex>
       <NavButtons icon={BiHomeAlt}>Home</NavButtons>
+      <NavButtons icon={AiOutlineTag}>Tags</NavButtons>
     </Box>
   );
 };
@@ -66,7 +68,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
 const NavButtons = ({ icon, children, ...rest }: NavButtonProps) => {
   return (
     <Link
-      href="/"
+      href="/tags"
       style={{ textDecoration: "none" }}
       _focus={{ boxShadow: "none" }}
     >
