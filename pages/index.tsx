@@ -117,17 +117,19 @@ const Hero = (): JSX.Element => {
         alignSelf={"center"}
         mt={"2em"}
       >
-        <Button
-          bg={"cyan.500"}
-          leftIcon={<FaPencilAlt />}
-          _hover={{ bg: "cyan.400" }}
-          color={"white"}
-          mt={"2em"}
-          fontSize={{ base: "lg", md: "2xl" }}
-          p={{ base: "4", md: "6" }}
-        >
-          WRITE
-        </Button>
+        <Link href="/new" color={"white"}>
+          <Button
+            bg={"cyan.500"}
+            leftIcon={<FaPencilAlt />}
+            _hover={{ bg: "cyan.400" }}
+            color={"white"}
+            mt={"2em"}
+            fontSize={{ base: "lg", md: "2xl" }}
+            p={{ base: "4", md: "6" }}
+          >
+            WRITE
+          </Button>
+        </Link>
       </Stack>
     </Stack>
   );
