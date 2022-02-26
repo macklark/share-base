@@ -1,11 +1,4 @@
-import {
-  Stack,
-  Box,
-  Heading,
-  Link,
-  Text,
-  useColorModeValue,
-} from "@chakra-ui/react";
+import { Stack, Box, Heading, Link, Text } from "@chakra-ui/react";
 
 import React from "react";
 
@@ -30,12 +23,7 @@ const Feed: React.FC<blogProps> = ({ blogs }) => {
                 {blog.title}
               </Link>
             </Heading>
-            <Text
-              as="p"
-              marginTop="2"
-              color={useColorModeValue("gray.700", "gray.200")}
-              fontSize="lg"
-            >
+            <Text as="p" marginTop="2" color={"gray.700"} fontSize="lg">
               {blog.description}
             </Text>
           </Stack>
