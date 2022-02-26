@@ -77,7 +77,13 @@ const Hero = (): JSX.Element => {
 };
 
 type blogProps = {
-  blogs: Array<{}>;
+  blogs: [
+    {
+      id: number;
+      title: string;
+      description: string;
+    }
+  ];
 };
 
 const Home: React.FC<blogProps> = ({ blogs }) => {
